@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  notebook:
+    image: jupyter/minimal-notebook
+    build:
+      context: ./jupyter
+    links:
+      - postgres
+    volumes: 
+      - ./notebooks/:/home/jovyan/work
+    ports:
+      - "8888:8888"
+
